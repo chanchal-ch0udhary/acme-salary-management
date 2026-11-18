@@ -1,0 +1,13 @@
+# Render "Blueprint": creates one web service from the Dockerfile.
+# Free plan = the disk is temporary, so the database is created and seeded again on each restart.
+services:
+  - type: web
+    name: acme-salary-management
+    runtime: docker
+    plan: free
+    healthCheckPath: /up
+    envVars:
+      - key: SECRET_KEY_BASE
+        generateValue: true
+      - key: FORCE_SSL
+        value: "true"
