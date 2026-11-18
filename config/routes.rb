@@ -1,10 +1,28 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  # Health check used by Docker / Render.
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  namespace :api do
+    get "meta", to: "meta#show"
+
+    resources :employees, only: %i[index show create update] do
+      collection do
+        get :export   # GET  /api/employees/export.csv (same filters as the list)
+        post :import  # POST /api/employees/import     (raw CSV in the body)
+      end
+      member do
+        post :salary           # POST /api/employees/:id/salary
+        get :salary_history    # GET  /api/employees/:id/salary_history
+      end
+    end
+
+    get "insights/overview", to: "insights#overview"
+    get "insights/breakdown", to: "insights#breakdown"
+    get "insights/distribution", to: "insights#distribution"
+    get "insights/pay_gap", to: "insights#pay_gap"
+  end
+
+  # Everything else (including the React pages like /employees/5) gets the React app.
+  root "frontend#index"
+  get "*path", to: "frontend#index", constraints: ->(request) { !request.path.start_with?("/api") }
 end
