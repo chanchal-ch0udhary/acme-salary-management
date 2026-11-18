@@ -2,7 +2,7 @@
 
 A web app for the HR manager to **manage the salaries of 10,000 employees** (many countries) and to **answer "how do we pay people?"**. It replaces the Excel sheets.
 
-- **Live demo:** _see the link in the submission email_ (hosted on a free plan, so the first visit can take about a minute to wake up and data resets on restart)
+- **Live demo:** https://acme-salary-management-2iku.onrender.com (hosted on a free plan, so the first visit can take about a minute to wake up and data resets on restart)
 - **Demo video:** [`demo/salary-management-demo.webm`](demo/salary-management-demo.webm)
 - **Read first:** [`docs/REQUIREMENTS.md`](docs/REQUIREMENTS.md) (written before the code), then [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) and [`docs/AI_USAGE.md`](docs/AI_USAGE.md)
 
