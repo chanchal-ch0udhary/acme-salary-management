@@ -1,9 +1,18 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
+# Creates 10,000 fake employees with their salary history.
 #
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+#   bin/rails db:seed              (does nothing if employees already exist)
+#   RESET=1 bin/rails db:seed      (deletes everything first, then seeds again)
+#   COUNT=500 bin/rails db:seed    (a smaller data set)
+
+if ENV["RESET"].present?
+  SalaryChange.delete_all
+  Employee.delete_all
+end
+
+if Employee.exists?
+  puts "Employees already exist (#{Employee.count}). Use RESET=1 to start over."
+else
+  started = Time.current
+  count = EmployeeSeeder.run(count: ENV.fetch("COUNT", EmployeeSeeder::DEFAULT_COUNT).to_i)
+  puts "Seeded #{count} employees in #{(Time.current - started).round(1)} seconds."
+end
