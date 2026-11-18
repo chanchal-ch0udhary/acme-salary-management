@@ -30,7 +30,7 @@ export const useEmployee = (id: number) =>
   useQuery({ queryKey: ['employees', id], queryFn: () => api.get<Employee>(`/api/employees/${id}`) });
 
 export const useSalaryHistory = (id: number) =>
-  useQuery({ queryKey: ['employees', id, 'history'], queryFn: () => api.get<SalaryChange[]>(`/api/employees/${id}/salary-history`) });
+  useQuery({ queryKey: ['employees', id, 'history'], queryFn: () => api.get<SalaryChange[]>(`/api/employees/${id}/salary_history`) });
 
 export const useOverview = () => useQuery({ queryKey: ['insights', 'overview'], queryFn: () => api.get<Overview>('/api/insights/overview') });
 
@@ -50,7 +50,7 @@ export const useDistribution = () =>
 export const usePayGap = (by: PayGapDimension) =>
   useQuery({
     queryKey: ['insights', 'pay-gap', by],
-    queryFn: () => api.get<{ rows: PayGapRow[] }>(`/api/insights/pay-gap?by=${by}`).then((r) => r.rows),
+    queryFn: () => api.get<{ rows: PayGapRow[] }>(`/api/insights/pay_gap?by=${by}`).then((r) => r.rows),
     placeholderData: keepPreviousData,
   });
 

@@ -97,7 +97,7 @@ export function EmployeeFormDialog({ open, onClose, employee, onCreated }: Props
               helperText={errors.salary ?? (isEdit ? 'Use “Change salary” to keep an audit trail' : undefined)}
             />
           </Grid>
-          {mutation.error && !Object.keys(errors).length && (
+          {mutation.error && (
             <Grid size={12}><Alert severity="error">{mutation.error.message}</Alert></Grid>
           )}
         </Grid>

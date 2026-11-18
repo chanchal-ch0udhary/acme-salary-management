@@ -65,7 +65,7 @@ export function SalaryChangeDialog({ employee, open, onClose }: Props) {
             error={!!fieldErrors.reason}
             helperText={fieldErrors.reason ?? 'Recorded in the audit history'}
           />
-          {mutation.error && !Object.keys(fieldErrors).length && <Alert severity="error">{mutation.error.message}</Alert>}
+          {mutation.error && <Alert severity="error">{mutation.error.message}</Alert>}
         </Stack>
       </DialogContent>
       <DialogActions>
